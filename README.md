@@ -9,6 +9,7 @@ There are times when you have an exetable on your linux machines and sometimes w
 PLyzer is able to provide you with the following information. 
 
 - File Type
+- File Hashes (MD5, SHA1, SHA256, SHA 512)
 - DOS Header
 - PE Pointer Header
 - No of Sections

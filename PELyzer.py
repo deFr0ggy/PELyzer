@@ -2,6 +2,7 @@ import sys
 import pefile
 import colorama
 import magic
+import hashlib
 from colorama import Fore
 
 colorama.init(autoreset=True)
@@ -69,9 +70,42 @@ def banner():
     """
     print(Fore.YELLOW + banned)
 
+def hashCalc(file):
+
+    print(Fore.BLUE + "[+] Calculating File Hashes\n")
+
+    try:
+        sameplFile = file
+        md5 = hashlib.md5()
+        sha1 = hashlib.sha1()
+        sha256 = hashlib.sha256()
+        sha512 = hashlib.sha512()
+
+        with open(sameplFile, "rb") as file:
+            EOF = 0
+            while EOF != b'':
+                EOF = file.read()
+                md5.update(EOF)
+                sha512.update(EOF)
+                sha256.update(EOF)
+                sha1.update(EOF)
+
+        print(Fore.GREEN + "MD5: " + Fore.LIGHTMAGENTA_EX + md5.hexdigest())
+        print(Fore.GREEN + "SHA1: " + Fore.LIGHTMAGENTA_EX + sha1.hexdigest())
+        print(Fore.GREEN + "SHA256: " + Fore.LIGHTMAGENTA_EX + sha256.hexdigest())
+        print(Fore.GREEN + "SHA512: " + Fore.LIGHTMAGENTA_EX + sha512.hexdigest())
+        print(Fore.RESET)
+
+    except:
+        print(Fore.RED + "[+] Nano Hashes! Check Manually!") 
+
+    
+
 def realWork(file):
     
-    print(Fore.BLUE + "[+] File Type: " + Fore.RESET + magic.from_file(file))
+    print(Fore.BLUE + "[+] File Type: " + Fore.RESET + magic.from_file(file)) 
+
+    hashCalc(file)
 
     try:
 
